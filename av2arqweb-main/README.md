@@ -1,101 +1,122 @@
 # AutheticUser - API de Autenticação com JWT
 
-Esta aplicação, desenvolvida com **Spring Boot**, fornece autenticação via **JWT (JSON Web Token)**. A seguir, veja como executar a aplicação, acessar ferramentas úteis e rodar testes de carga.
+Este projeto foi desenvolvido com **Spring Boot** e oferece autenticação baseada em **JWT (JSON Web Token)**. Abaixo você encontrará instruções para rodar a aplicação, acessar ferramentas úteis e realizar testes de carga.
 
 ---
 
-## ✅ Requisitos
+## ✅ Pré-requisitos
+
+Certifique-se de que os seguintes requisitos estão instalados na sua máquina:
 
 - Java 11 ou superior
-- Maven instalado
+- Maven
 - JMeter (para testes de carga)
 
 ---
 
-## 🚀 Como rodar a aplicação
+## 🚀 Executando a Aplicação
 
-1. Clone o repositório:
+1. **Clone o repositório:**
 
 ```bash
 git clone https://github.com/seuusuario/autheticuser.git
 cd autheticuser
 ```
-Compile o projeto:
+
+2. **Compile o projeto com Maven:**
+
 ```bash
 mvn clean install
 ```
-Execute o projeto:
 
-bash
+3. **Execute a aplicação:**
+
+```bash
 mvn spring-boot:run
-A aplicação estará disponível em: http://localhost:8080
+```
 
-📄 Acessando o Swagger
-A documentação interativa da API está disponível em:
+A aplicação estará disponível em:  
+👉 `http://localhost:8080`
 
-👉 http://localhost:8080/swagger-ui/index.html#/Autenticação/login
+---
 
-Para testar o login via Swagger:
+## 📄 Documentação da API (Swagger)
 
-Acesse POST /auth/login
+A documentação interativa da API está disponível em:  
+👉 `http://localhost:8080/swagger-ui/index.html#/Autenticação/login`
 
-Use o corpo da requisição:
+### Testando o login via Swagger:
 
-json
+- Endpoint: `POST /auth/login`
+- Corpo da requisição:
+
+```json
 {
   "username": "admin",
   "password": "123456"
 }
-🗃️ Acessando o Console H2
-Para acessar o H2 Console, vá até:
+```
 
-👉 http://localhost:8080/h2-console
+---
 
-Credenciais:
+## 🗃️ Acessando o Console do H2
 
-JDBC URL: `jdbc:h2:mem:testdb`
+Você pode acessar o console do banco H2 em:  
+👉 `http://localhost:8080/h2-console`
 
-Usuário: `sa`
+### Credenciais:
 
-Senha: (em branco)
+- **JDBC URL:** `jdbc:h2:mem:testdb`
+- **Usuário:** `sa`
+- **Senha:** *(deixe em branco)*
 
-🧪 Teste de carga com JMeter
-Etapas no JMeter
-Criar novo plano de teste: Vá em File > New
+---
 
-Adicionar Thread Group: Clique direito em Test Plan > Add > Threads (Users) > Thread Group
+## 🧪 Testes de Carga com JMeter
 
-Number of Threads (users): 200
+### Etapas:
 
-Ramp-up period (seconds): 20
+1. **Criar novo plano de teste:**
+   - `File > New`
 
-Loop Count: 10 (ou marque "Forever" para requisições contínuas)
+2. **Adicionar Thread Group:**
+   - Clique com o botão direito em Test Plan > `Add > Threads (Users) > Thread Group`
+   - Configurações:
+     - **Number of Threads (users):** 200
+     - **Ramp-up period (seconds):** 20
+     - **Loop Count:** 10 *(ou marque "Forever" para execução contínua)*
 
-Adicionar HTTP Request: Clique direito no Thread Group > Add > Sampler > HTTP Request
+3. **Adicionar requisição HTTP:**
+   - Clique com o botão direito no Thread Group > `Add > Sampler > HTTP Request`
+   - Parâmetros:
+     - **Name:** Login Request
+     - **Protocol:** http
+     - **Server Name or IP:** localhost
+     - **Port Number:** 8080
+     - **Method:** POST
+     - **Path:** /auth/login
+     - **Body Data:**
 
-Name: Login Request
-
-Protocol: http
-
-Server Name or IP: localhost
-
-Port Number: 8080
-
-Method: POST
-
-Path: /auth/login
-
-Configurar o corpo da requisição (Body Data):
-
-json
+```json
 {
   "username": "admin",
   "password": "123456"
 }
-Adicionar HTTP Header Manager: Clique direito em Login Request > Add > Config Element > HTTP Header Manager Configure:
+```
 
-Name: Content-Type
+4. **Adicionar Header HTTP:**
+   - Clique com o botão direito em Login Request > `Add > Config Element > HTTP Header Manager`
+   - Configure:
+     - **Name:** `Content-Type`
+     - **Value:** `application/json`
 
-Value: application/json
+5. **Visualizar resultados:**
+   - Clique com o botão direito em Thread Group > `Add > Listener > View Results Tree`
 
-Visualizar resultados: Clique direito em Thread Group > Add > Listener > View Results Tree
+---
+
+## 📫 Contato
+
+Em caso de dúvidas ou sugestões, sinta-se à vontade para abrir uma issue ou pull request neste repositório.
+
+---
